@@ -3,7 +3,7 @@
 This competition was part of the "Text Retrieval and Search Engine" class given by [professor ChengXiang Zhai](http://czhai.cs.illinois.edu/) on Coursera (University of Illinois - Dpt of Computer Science). Objective was to implement and optimize a search engine using the [MeTA toolkit](https://meta-toolkit.org/). MeTa is a C++ data sciences toolkit that supports a variety of tasks such as text retrieval, natural language processing, and machine learning.https://meta-toolkit.org/
 
 For the competition we used a dataset containing the description of about 23.000 MOOCs.
-I implemented and tuned different vector space model ranking functions, including Okapi BM25, jelinek-mercer, absolute-discount, etc. along with modified rankers proposed in [1][1]. The best results were obtained with a modified Pivoted-Length ranker (MPtf2ln) from [1][1], with which I ranked #22 over 200+ participants on the leaderboard. The codes requier basic understanding of search engine working principle, especially vector space model ranking function, along with basic knowledge of C++.
+I implemented and tuned different vector space model ranking functions, including Okapi BM25, jelinek-mercer, absolute-discount, etc. along with modified rankers proposed in [1]. The best results were obtained with a modified Pivoted-Length ranker (MPtf2ln) from [1], with which I ranked #22 over 200+ participants on the leaderboard. The codes requier basic understanding of search engine working principle, especially vector space model ranking function, along with basic knowledge of C++.
 
 This report describes the prerequisites, the dataset used, and the strategies I implemented to optimize the search engine.
 
@@ -17,8 +17,6 @@ The repo contains the following files:
 * `R bag of word`: R code to analyze the dataset and find top N words using bag of word model
 * `competition.cpp`: the main program use for the competition
 * `src/`: different version of main programme *competition.cpp*, implementing different rankers and rocchio pseudo feedback (MeTa needs to be recompiled with these files renamed to competition.cpp and put in meta/src/index/tools before use)
-
-[1]: H. Fang, T. Tao, C. Zhai, Diagnostic Evaluation of Information Retrieval Models, 2010
 
 ## Prerequisites
 
@@ -103,8 +101,8 @@ This allowed a slight improvement of the Test MAP, reaching about 0.627, due to 
 Third step was to implement and tune other rankers :
 
 * pl2
-* MPtf2ln (modified Pivoted-length from [1][1])
-* MDtf2ln (modified Dirichlet from [1][1])
+* MPtf2ln (modified Pivoted-length from [1])
+* MDtf2ln (modified Dirichlet from [1])
 
 The pl2 ranker appeared not very efficient (Train MAP up to 0.58).
 MPtf2ln and MDtf2ln gave good results and I achieved my best score with MPtf2ln reaching a MAP on the test data of 0.6317. The latter ranker also appeared to be quite robust (MAP curves are relatively flat with the optimum not strongly sensitive to slight change in parameters). So I decided to keep this ranker for the rest of my investigations.
@@ -122,3 +120,6 @@ Besides the approaches discussed above, I tried the following, which however was
 
 From the discussions on the forum it seems that mixing the two approaches discussed above (pseudo feedback + new stop words) can lead to better results. Also, best scores on the leaderboard were obtained by using ensembles, i.e. weighted average of different rankers. It is known that ensemble are rather powerfull in machine learning and it seems to be similar for vector space model based ranking.
 
+## Reference
+
+[1]: H. Fang, T. Tao, C. Zhai, Diagnostic Evaluation of Information Retrieval Models, 2010
